@@ -7,11 +7,13 @@ use Illuminate\Http\Request;
 
 class CocheController extends Controller
 {
+    // Obtener todos los coches
     public function index()
     {
         return Coche::all();
     }
 
+    // Crear un nuevo coche
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -25,13 +27,29 @@ class CocheController extends Controller
         return Coche::create($data);
     }
 
-    public function show(Coche $coche)
+    // Obtener un coche por ID
+    public function show($id)
     {
+        $coche = Coche::find($id);
+
+        if (!$coche) {
+            return response()->json(['message' => 'Coche no encontrado'], 404);
+        }
+
         return $coche;
     }
 
-    public function update(Request $request, Coche $coche)
+    // Actualizar un coche
+    public function update(Request $request, $id)
     {
+        // Buscar el coche por ID
+        $coche = Coche::find($id);
+
+        if (!$coche) {
+            return response()->json(['message' => 'Coche no encontrado'], 404);
+        }
+
+        // Validar los datos de entrada
         $data = $request->validate([
             'marca' => 'sometimes|string|max:255',
             'modelo' => 'sometimes|string|max:255',
@@ -40,13 +58,25 @@ class CocheController extends Controller
             'estado' => 'sometimes|in:disponible,vendido,reparacion',
         ]);
 
+        // Actualizar el coche
         $coche->update($data);
-        return $coche;
+
+        return response()->json($coche);
     }
 
-    public function destroy(Coche $coche)
+    // Eliminar un coche
+    public function destroy($id)
     {
+        // Buscar el coche por ID
+        $coche = Coche::find($id);
+
+        if (!$coche) {
+            return response()->json(['message' => 'Coche no encontrado'], 404);
+        }
+
+        // Eliminar el coche
         $coche->delete();
-        return response()->noContent();
+
+        return response()->json(['message' => 'Coche eliminado correctamente'], 200);
     }
 }

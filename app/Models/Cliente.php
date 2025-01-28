@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Cliente extends Model
 {
-    protected $fillable = ['nombre', 'email', 'telefono'];
+    protected $fillable = [
+        'nombre',
+        'apellido',
+        'email',
+        'telefono',
+    ];
 
     /**
      * Obtener las ventas asociadas al cliente.

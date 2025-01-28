@@ -7,7 +7,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Coche extends Model
 {
-    protected $fillable = ['marca', 'modelo', 'año', 'precio', 'estado'];
+    protected $fillable = [
+        'marca',
+        'modelo',
+        'año',
+        'precio',
+        'estado',
+    ];
 
     /**
      * Obtener las ventas asociadas al coche.

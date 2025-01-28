@@ -7,7 +7,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Venta extends Model
 {
-    protected $fillable = ['cliente_id', 'coche_id', 'empleado_id', 'fecha', 'precio_final'];
+    // Usamos fecha_venta porque así se llama en la migración
+    protected $fillable = [
+        'coche_id',
+        'cliente_id',
+        'empleado_id',
+        'fecha_venta',
+        'precio_final',
+    ];
 
     /**
      * Obtener el cliente asociado a la venta.
